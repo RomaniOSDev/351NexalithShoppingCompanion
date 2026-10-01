@@ -32,6 +32,7 @@
 		774BBEF2C359A02A71081005 /* OccasionEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8FC44EE67FA862418A654 /* OccasionEditorSheet.swift */; };
 		7D763BE475C58F4A23B59EB8 /* PeopleBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA2654F9EC77D32749252DB /* PeopleBoardView.swift */; };
 		8AFB2C724E2647CDB268FFE6 /* LoadingThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DC85451AF4F4FA5D91EBA /* LoadingThemeColors.swift */; };
+		8D25B98AFCFE48CDB261FF7A /* NotificationInteractionCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AF70FFB8034A169A80F549 /* NotificationInteractionCallback.swift */; };
 		8D25F0A1C93E47B16D80A5C2 /* GiftStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7E3A49B05D68F24A91C0E7 /* GiftStatsView.swift */; };
 		98695CBA71C339A3C0F65AC8 /* PhotoDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999018C70D81280F421F9075 /* PhotoDisk.swift */; };
 		ADD847DBC7B7CB86B73BAC95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39531E18E1018F5A9C02100C /* AppDelegate.swift */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		06B65DCDE3204D1EAAC4A0EB /* AppsFlyerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsFlyerManager.swift; sourceTree = "<group>"; };
 		0994BC6362DCDE20B589E557 /* GiftTagCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftTagCard.swift; sourceTree = "<group>"; };
+		15AF70FFB8034A169A80F549 /* NotificationInteractionCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInteractionCallback.swift; sourceTree = "<group>"; };
 		1871799F85A8B0798EF855E4 /* Pods-351NexalithShoppingCompanion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-351NexalithShoppingCompanion.release.xcconfig"; path = "Target Support Files/Pods-351NexalithShoppingCompanion/Pods-351NexalithShoppingCompanion.release.xcconfig"; sourceTree = "<group>"; };
 		1C7E3A49B05D68F24A91C0E7 /* GiftStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftStatsView.swift; sourceTree = "<group>"; };
 		1D1C1718A738D857B3883B5C /* WrapSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapSummaryView.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				34640B17DD1343BA83984873 /* NotificationPermissionView.swift */,
 				DF2339D01F604610B5C69940 /* NotificationPermissionViewController.swift */,
 				4D822EAF711C4BD7823632DD /* PushNotificationURLRouter.swift */,
+				15AF70FFB8034A169A80F549 /* NotificationInteractionCallback.swift */,
 				23C32BD20C4046BAB4F77342 /* UserAgentBuilder.swift */,
 				607759EB09824F0CAD036CFE /* WebviewVC.swift */,
 			);
@@ -543,6 +546,7 @@
 				F99706BA51524892B10B2F25 /* NotificationPermissionView.swift in Sources */,
 				EEB7B50022A944A0AE9ECD52 /* NotificationPermissionViewController.swift in Sources */,
 				BCD46DB0AB7C4036913599F3 /* PushNotificationURLRouter.swift in Sources */,
+				8D25B98AFCFE48CDB261FF7A /* NotificationInteractionCallback.swift in Sources */,
 				43D7627F6A604E93AF1FF4BD /* UserAgentBuilder.swift in Sources */,
 				F52C571CF0E54A6FA96EA3E6 /* WebviewVC.swift in Sources */,
 			);
@@ -568,7 +572,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = 351NexalithShoppingCompanion/351NexalithShoppingCompanion.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -610,7 +614,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = 351NexalithShoppingCompanion/351NexalithShoppingCompanion.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -709,7 +713,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -804,7 +808,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = NO;
