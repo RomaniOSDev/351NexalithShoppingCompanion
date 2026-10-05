@@ -85,6 +85,7 @@ struct GiftProfile: Identifiable, Equatable, Hashable {
     var occasionType: OccasionType
     var giftIdeas: String
     var photoFileName: String?
+    var voiceNoteFileName: String?
     var purchasedAt: Date?
     var notes: String
     var plannedBudget: Double?
@@ -259,7 +260,7 @@ extension String {
 extension GiftProfile: Codable {
     enum CodingKeys: String, CodingKey {
         case id, recipientName, occasionDate, occasionType, giftIdeas
-        case photoFileName, purchasedAt, notes, plannedBudget
+        case photoFileName, voiceNoteFileName, purchasedAt, notes, plannedBudget
         case clothingSize, favoriteColors, avoidList, pipelineStatus
         case checklist, repeatsYearly
     }
@@ -272,6 +273,7 @@ extension GiftProfile: Codable {
         occasionType = try container.decode(OccasionType.self, forKey: .occasionType)
         giftIdeas = try container.decode(String.self, forKey: .giftIdeas)
         photoFileName = try container.decodeIfPresent(String.self, forKey: .photoFileName)
+        voiceNoteFileName = try container.decodeIfPresent(String.self, forKey: .voiceNoteFileName)
         purchasedAt = try container.decodeIfPresent(Date.self, forKey: .purchasedAt)
         notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         plannedBudget = try container.decodeIfPresent(Double.self, forKey: .plannedBudget)

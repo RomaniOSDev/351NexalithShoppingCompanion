@@ -17,6 +17,7 @@
 		2F90B1D84C6A37E05B19D8A4 /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C8E20D9B57F13E84A2C5 /* KeyboardDismiss.swift */; };
 		309F92AC306BB34D0056DAD1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309F92AB306BB34D0056DAD1 /* GoogleService-Info.plist */; };
 		391DD0AE3BA1423E94AB0EAC /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BD899C9EE43A1B9C49AE0 /* ConfigManager.swift */; };
+		406947E641CB4D649837EE8F /* VoiceNoteDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC00E5265A974E57A7743AC5 /* VoiceNoteDisk.swift */; };
 		43A8EB98828D83D3586A3E4A /* ScreenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE080CD72FD170D2EBB146B /* ScreenBackground.swift */; };
 		43D7627F6A604E93AF1FF4BD /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C32BD20C4046BAB4F77342 /* UserAgentBuilder.swift */; };
 		49961FF6BC746A800FA10025 /* RibbonSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012578064F6C9E46E14F652 /* RibbonSettingsView.swift */; };
@@ -121,6 +122,7 @@
 		CDB702692A164CF3E38FC66A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CFD92C69C9A479D0EA29912F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D92B8A3673C5E545701D9CC7 /* 351NexalithShoppingCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 351NexalithShoppingCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC00E5265A974E57A7743AC5 /* VoiceNoteDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteDisk.swift; sourceTree = "<group>"; };
 		DD5726793B9848D1B33C8799 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		DDA2654F9EC77D32749252DB /* PeopleBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleBoardView.swift; sourceTree = "<group>"; };
 		DF2339D01F604610B5C69940 /* NotificationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				7E2A4C91B06D58F13A25E8B0 /* GiftReminders.swift */,
 				6A41C8E20D9B57F13E84A2C5 /* KeyboardDismiss.swift */,
 				999018C70D81280F421F9075 /* PhotoDisk.swift */,
+				DC00E5265A974E57A7743AC5 /* VoiceNoteDisk.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				2F90B1D84C6A37E05B19D8A4 /* KeyboardDismiss.swift in Sources */,
 				4D18F3A0C92B47E16A80C5D1 /* GiftReminders.swift in Sources */,
 				98695CBA71C339A3C0F65AC8 /* PhotoDisk.swift in Sources */,
+				406947E641CB4D649837EE8F /* VoiceNoteDisk.swift in Sources */,
 				223A68A31E3EDD7061E06F41 /* FolderTabs.swift in Sources */,
 				737F88C7DEA32CA6463329C8 /* GiftTagCard.swift in Sources */,
 				E2A921BE250A92E99746A71C /* RibbonBanner.swift in Sources */,
@@ -572,14 +576,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = 351NexalithShoppingCompanion/351NexalithShoppingCompanion.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 351NexalithShoppingCompanion/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Nexalith Shopping Companion";
-				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to let you capture photos and videos inside web content.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We use the microphone to record audio for camera and web content.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take a photo of a gift idea or a wrapped gift for your recipient profile.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Record a short voice note with gift ideas or reminders for a recipient.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use this data to measure ad campaigns and improve your experience in the app.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -589,7 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -614,14 +618,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = 351NexalithShoppingCompanion/351NexalithShoppingCompanion.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 351NexalithShoppingCompanion/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Nexalith Shopping Companion";
-				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to let you capture photos and videos inside web content.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We use the microphone to record audio for camera and web content.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take a photo of a gift idea or a wrapped gift for your recipient profile.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Record a short voice note with gift ideas or reminders for a recipient.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use this data to measure ad campaigns and improve your experience in the app.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -631,7 +635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -713,7 +717,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -724,7 +728,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -808,7 +812,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_DEBUG_DYLIB = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -819,7 +823,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

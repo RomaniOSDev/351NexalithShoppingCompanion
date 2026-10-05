@@ -7,7 +7,9 @@ struct WrapSummaryView: View {
     @State private var typeFilter: OccasionType?
     @State private var ideaPrefill: GiftOccasion?
     @State private var historyPhotoTarget: PurchaseRecord?
-    @State private var showHistoryPicker = false
+    @State private var showHistoryLibraryPicker = false
+    @State private var showHistoryCameraPicker = false
+    @State private var showHistoryPhotoMenu = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,14 +32,42 @@ struct WrapSummaryView: View {
         .sheet(item: $ideaPrefill) { occasion in
             ProfileEditorSheet(store: store, prefills: occasion)
         }
-        .sheet(isPresented: $showHistoryPicker) {
-            PhotoPickerRepresentable { image in
-                if let saved = PhotoDisk.saveJPEG(image), let target = historyPhotoTarget {
-                    store.setWrappedPhoto(recordID: target.id, fileName: saved)
-                }
+        .confirmationDialog(
+            "Wrapped Gift Photo",
+            isPresented: $showHistoryPhotoMenu,
+            titleVisibility: .visible
+        ) {
+            if CameraPickerRepresentable.isCameraAvailable {
+                Button("Take Photo") { showHistoryCameraPicker = true }
+            }
+            Button("Choose Photo") { showHistoryLibraryPicker = true }
+            Button("Cancel", role: .cancel) {
                 historyPhotoTarget = nil
             }
         }
+        .sheet(isPresented: $showHistoryLibraryPicker) {
+            PhotoPickerRepresentable { image in
+                applyHistoryPhoto(image)
+            }
+        }
+        .fullScreenCover(isPresented: $showHistoryCameraPicker) {
+            CameraPickerRepresentable(
+                onCapture: { image in
+                    applyHistoryPhoto(image)
+                },
+                onCancel: nil
+            )
+            .ignoresSafeArea()
+        }
+    }
+
+    private func applyHistoryPhoto(_ image: UIImage) {
+        guard let saved = PhotoDisk.saveJPEG(image), let target = historyPhotoTarget else {
+            historyPhotoTarget = nil
+            return
+        }
+        store.setWrappedPhoto(recordID: target.id, fileName: saved)
+        historyPhotoTarget = nil
     }
 
     private var isCompletelyEmpty: Bool {
@@ -407,7 +437,7 @@ struct WrapSummaryView: View {
                     }
                     Button(record.wrappedPhotoFileName == nil ? "Add photo" : "Change photo") {
                         historyPhotoTarget = record
-                        showHistoryPicker = true
+                        showHistoryPhotoMenu = true
                     }
                     .font(.system(size: 13, weight: .heavy, design: .rounded))
                     .foregroundColor(Palette.text)

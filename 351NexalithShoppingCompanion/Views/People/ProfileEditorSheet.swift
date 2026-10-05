@@ -13,6 +13,8 @@ struct ProfileEditorSheet: View {
     @State private var notes: String
     @State private var photoFileName: String?
     @State private var originalPhotoFileName: String?
+    @State private var voiceNoteFileName: String?
+    @State private var originalVoiceNoteFileName: String?
     @State private var plannedBudgetText: String
     @State private var clothingSize: String
     @State private var favoriteColors: String
@@ -20,8 +22,10 @@ struct ProfileEditorSheet: View {
     @State private var repeatsYearly: Bool
     @State private var pipelineStatus: GiftPipelineStatus
     @State private var checklist: [GiftChecklistItem]
-    @State private var showPicker = false
+    @State private var showLibraryPicker = false
+    @State private var showCameraPicker = false
     @State private var validationMessage: String?
+    @State private var cameraUnavailableMessage: String?
 
     init(store: GiftStore, existing: GiftProfile? = nil, prefills: GiftOccasion? = nil) {
         self.store = store
@@ -34,6 +38,8 @@ struct ProfileEditorSheet: View {
             _notes = State(initialValue: existing.notes)
             _photoFileName = State(initialValue: existing.photoFileName)
             _originalPhotoFileName = State(initialValue: existing.photoFileName)
+            _voiceNoteFileName = State(initialValue: existing.voiceNoteFileName)
+            _originalVoiceNoteFileName = State(initialValue: existing.voiceNoteFileName)
             _plannedBudgetText = State(initialValue: existing.plannedBudget.map { String(format: "%g", $0) } ?? "")
             _clothingSize = State(initialValue: existing.clothingSize)
             _favoriteColors = State(initialValue: existing.favoriteColors)
@@ -49,6 +55,8 @@ struct ProfileEditorSheet: View {
             _notes = State(initialValue: prefills.notes)
             _photoFileName = State(initialValue: nil)
             _originalPhotoFileName = State(initialValue: nil)
+            _voiceNoteFileName = State(initialValue: nil)
+            _originalVoiceNoteFileName = State(initialValue: nil)
             _plannedBudgetText = State(initialValue: prefills.plannedBudget.map { String(format: "%g", $0) } ?? "")
             _clothingSize = State(initialValue: "")
             _favoriteColors = State(initialValue: "")
@@ -64,6 +72,8 @@ struct ProfileEditorSheet: View {
             _notes = State(initialValue: "")
             _photoFileName = State(initialValue: nil)
             _originalPhotoFileName = State(initialValue: nil)
+            _voiceNoteFileName = State(initialValue: nil)
+            _originalVoiceNoteFileName = State(initialValue: nil)
             _plannedBudgetText = State(initialValue: "")
             _clothingSize = State(initialValue: "")
             _favoriteColors = State(initialValue: "")
@@ -79,6 +89,7 @@ struct ProfileEditorSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     photoBlock
+                    VoiceNoteControlView(fileName: $voiceNoteFileName)
                     labeledField("Recipient") {
                         GiftLineField(placeholder: "Who is this for?", text: $recipientName)
                     }
@@ -152,6 +163,11 @@ struct ProfileEditorSheet: View {
                             .font(.system(size: 13, weight: .semibold, design: .rounded))
                             .foregroundColor(Palette.text)
                     }
+                    if let cameraUnavailableMessage = cameraUnavailableMessage {
+                        Text(cameraUnavailableMessage)
+                            .font(.system(size: 13, weight: .semibold, design: .rounded))
+                            .foregroundColor(Palette.text)
+                    }
                 }
                 .padding(18)
             }
@@ -181,15 +197,19 @@ struct ProfileEditorSheet: View {
             }
         }
         .navigationViewStyle(.stack)
-        .sheet(isPresented: $showPicker) {
+        .sheet(isPresented: $showLibraryPicker) {
             PhotoPickerRepresentable { image in
-                if let saved = PhotoDisk.saveJPEG(image) {
-                    if let current = photoFileName, current != originalPhotoFileName {
-                        PhotoDisk.delete(current)
-                    }
-                    photoFileName = saved
-                }
+                applyCapturedPhoto(image)
             }
+        }
+        .fullScreenCover(isPresented: $showCameraPicker) {
+            CameraPickerRepresentable(
+                onCapture: { image in
+                    applyCapturedPhoto(image)
+                },
+                onCancel: nil
+            )
+            .ignoresSafeArea()
         }
     }
 
@@ -228,9 +248,21 @@ struct ProfileEditorSheet: View {
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Button("Choose Photo") { showPicker = true }
+                    Button("Take Photo") {
+                        if CameraPickerRepresentable.isCameraAvailable {
+                            showCameraPicker = true
+                        } else {
+                            cameraUnavailableMessage = "Camera is not available on this device."
+                            showLibraryPicker = true
+                        }
+                    }
+                    .font(.system(size: 14, weight: .heavy, design: .rounded))
+                    .foregroundColor(Palette.text)
+
+                    Button("Choose Photo") { showLibraryPicker = true }
                         .font(.system(size: 14, weight: .heavy, design: .rounded))
                         .foregroundColor(Palette.text)
+
                     if photoFileName != nil {
                         Button("Remove Photo") {
                             if let current = photoFileName, current != originalPhotoFileName {
@@ -243,6 +275,16 @@ struct ProfileEditorSheet: View {
                     }
                 }
             }
+        }
+    }
+
+    private func applyCapturedPhoto(_ image: UIImage) {
+        if let saved = PhotoDisk.saveJPEG(image) {
+            if let current = photoFileName, current != originalPhotoFileName {
+                PhotoDisk.delete(current)
+            }
+            photoFileName = saved
+            cameraUnavailableMessage = nil
         }
     }
 
@@ -325,6 +367,7 @@ struct ProfileEditorSheet: View {
             occasionType: occasionType,
             giftIdeas: giftIdeas,
             photoFileName: photoFileName,
+            voiceNoteFileName: voiceNoteFileName,
             purchasedAt: existing?.purchasedAt,
             notes: notes,
             plannedBudget: plannedBudgetText.giftMoney,
@@ -342,12 +385,18 @@ struct ProfileEditorSheet: View {
         if let original = originalPhotoFileName, original != photoFileName {
             PhotoDisk.delete(original)
         }
+        if let originalVoice = originalVoiceNoteFileName, originalVoice != voiceNoteFileName {
+            VoiceNoteDisk.delete(originalVoice)
+        }
         dismiss()
     }
 
     private func cancel() {
         if let current = photoFileName, current != originalPhotoFileName {
             PhotoDisk.delete(current)
+        }
+        if let currentVoice = voiceNoteFileName, currentVoice != originalVoiceNoteFileName {
+            VoiceNoteDisk.delete(currentVoice)
         }
         dismiss()
     }

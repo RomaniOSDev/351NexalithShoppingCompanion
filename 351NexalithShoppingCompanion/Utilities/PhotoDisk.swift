@@ -83,6 +83,60 @@ struct PhotoPickerRepresentable: UIViewControllerRepresentable {
     }
 }
 
+struct CameraPickerRepresentable: UIViewControllerRepresentable {
+    var onCapture: (UIImage) -> Void
+    var onCancel: (() -> Void)?
+
+    static var isCameraAvailable: Bool {
+        UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onCapture: onCapture, onCancel: onCancel)
+    }
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+        picker.allowsEditing = false
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let onCapture: (UIImage) -> Void
+        let onCancel: (() -> Void)?
+
+        init(onCapture: @escaping (UIImage) -> Void, onCancel: (() -> Void)?) {
+            self.onCapture = onCapture
+            self.onCancel = onCancel
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true) {
+                self.onCancel?()
+            }
+        }
+
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
+            let image = (info[.editedImage] as? UIImage) ?? (info[.originalImage] as? UIImage)
+            picker.dismiss(animated: true) {
+                if let image {
+                    self.onCapture(image)
+                } else {
+                    self.onCancel?()
+                }
+            }
+        }
+    }
+}
+
 struct DiskPhoto: View {
     let fileName: String?
 

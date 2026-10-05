@@ -165,6 +165,9 @@ final class GiftStore: ObservableObject {
         if let fileName = profile.photoFileName {
             PhotoDisk.delete(fileName)
         }
+        if let voice = profile.voiceNoteFileName {
+            VoiceNoteDisk.delete(voice)
+        }
         giftProfiles.removeAll { $0.id == profile.id }
         occasions.removeAll { $0.linkedProfileID == profile.id }
         if lastViewedProfileID == profile.id {
@@ -265,7 +268,11 @@ final class GiftStore: ObservableObject {
         for fileName in photos {
             PhotoDisk.delete(fileName)
         }
+        for voice in giftProfiles.compactMap(\.voiceNoteFileName) {
+            VoiceNoteDisk.delete(voice)
+        }
         PhotoDisk.deleteAllJPEGs()
+        VoiceNoteDisk.deleteAll()
         giftProfiles = []
         occasions = []
         pastPurchases = []
